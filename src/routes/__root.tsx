@@ -77,22 +77,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Harirup Dental Care — Dr. Harish Khamkar | Manchar" },
+      {
+        name: "description",
+        content:
+          "Harirup Dental Care in Manchar, Maharashtra — modern, gentle dentistry by Dr. Harish Khamkar. Book your appointment today.",
+      },
+      { property: "og:title", content: "Harirup Dental Care — Dr. Harish Khamkar" },
+      {
+        property: "og:description",
+        content: "Caring for your smile, naturally. Modern dental care in Manchar, Maharashtra.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
       },
     ],
   }),
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
