@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import {
   Stethoscope, Activity, Sparkles, Smile, Shield, Baby, AlertCircle,
   Scissors, Sun as SunIcon, Phone, MapPin, Mail, Clock, Star, ArrowRight,
-  Award, Users, HeartPulse, Wallet, CalendarCheck, ShieldCheck, ChevronDown,
+  Award, HeartPulse, Wallet, CalendarCheck, ShieldCheck,
 } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
