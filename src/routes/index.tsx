@@ -21,24 +21,6 @@ import { AppointmentDialog } from "@/components/site/AppointmentDialog";
 import { Placeholder } from "@/components/site/Placeholder";
 import { clinic } from "@/lib/clinic";
 
-import gExterior from "@/assets/gallery/clinic-155101.jpg.asset.json";
-import gReception1 from "@/assets/gallery/clinic-155056.jpg.asset.json";
-import gReception2 from "@/assets/gallery/clinic-155051.jpg.asset.json";
-import gWaiting from "@/assets/gallery/clinic-155037.jpg.asset.json";
-import gChair1 from "@/assets/gallery/clinic-155034.jpg.asset.json";
-import gChair2 from "@/assets/gallery/clinic-155046.jpg.asset.json";
-import gXray from "@/assets/gallery/clinic-155042.jpg.asset.json";
-
-const galleryPhotos = [
-  { src: gExterior.url, alt: "Harirup Dental Care clinic exterior, Manchar" },
-  { src: gReception1.url, alt: "Reception desk with informational displays" },
-  { src: gReception2.url, alt: "Reception and waiting area with patients" },
-  { src: gWaiting.url, alt: "Waiting area inside the clinic" },
-  { src: gChair1.url, alt: "Modern dental treatment chair" },
-  { src: gChair2.url, alt: "Treatment room with dental equipment and OPG room" },
-  { src: gXray.url, alt: "Digital dental X-ray and OPG imaging setup" },
-];
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -82,10 +64,9 @@ const whyUs = [
 ];
 
 const reviews = [
-  { name: "Sushant Thorat", rating: 5, text: "[Excellent care from Dr. Harish. The clinic is clean, modern and the team made me feel completely at ease.]" },
-  { name: "Amit Karpe", rating: 5, text: "[Best dental experience I've had in Manchar. Painless treatment and very fair pricing.]" },
-  { name: "Ramdas Pokharkar", rating: 5, text: "[Highly recommend Harirup Dental Care. Dr. Khamkar explains everything clearly and is very patient.]" },
-  { name: "Royal King Harry", rating: 5, text: "[Great clinic with modern equipment. Friendly staff and professional service throughout.]" },
+  { name: "[Patient Name]", rating: 5, text: "[Excellent care from Dr. Harish. The clinic is clean, modern and the team made me feel completely at ease.]" },
+  { name: "[Patient Name]", rating: 5, text: "[Best dental experience I've had in Manchar. Painless root canal and very fair pricing.]" },
+  { name: "[Patient Name]", rating: 5, text: "[Highly recommend Harirup Dental Care. Dr. Khamkar explains everything clearly and is very patient.]" },
 ];
 
 const faqs = [
@@ -192,12 +173,7 @@ function Hero() {
           </div>
         </div>
         <div className="reveal">
-          <img
-            src={gExterior.url}
-            alt="Harirup Dental Care clinic exterior in Patilwada, Manchar"
-            loading="eager"
-            className="aspect-[4/5] sm:aspect-[5/4] w-full rounded-3xl object-cover shadow-soft"
-          />
+          <Placeholder label="Clinic hero image" className="aspect-[4/5] sm:aspect-[5/4] w-full shadow-soft" />
         </div>
       </div>
     </section>
@@ -213,12 +189,7 @@ function About() {
   return (
     <section id="about" className="section-pad">
       <div className="container-x grid gap-12 lg:grid-cols-2 lg:items-center">
-        <img
-          src={gChair2.url}
-          alt="Treatment room at Harirup Dental Care"
-          loading="lazy"
-          className="aspect-square w-full max-w-md mx-auto rounded-3xl object-cover shadow-card reveal"
-        />
+        <Placeholder label="Photo of Dr. Harish Khamkar" className="aspect-square w-full max-w-md mx-auto shadow-card reveal" />
         <div className="reveal">
           <span className="inline-block rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
             About
@@ -337,39 +308,32 @@ function WhyUs() {
 }
 
 function Gallery() {
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const [open, setOpen] = useState(false);
+  const items = Array.from({ length: 6 });
   return (
     <section id="gallery" className="section-pad bg-muted/40">
       <div className="container-x">
         <SectionTitle eyebrow="Gallery" title="Inside our clinic" subtitle="A peek at our space and care in action." />
         <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-4">
-          {galleryPhotos.map((p, i) => (
+          {items.map((_, i) => (
             <button
               key={i}
-              onClick={() => setOpenIdx(i)}
-              className="block w-full overflow-hidden rounded-2xl shadow-card reveal group"
-              aria-label={`Open ${p.alt}`}
+              onClick={() => setOpen(true)}
+              className="block w-full text-left"
+              aria-label={`Open gallery image ${i + 1}`}
             >
-              <img
-                src={p.src}
-                alt={p.alt}
-                loading="lazy"
-                className="aspect-square w-full object-cover transition duration-300 group-hover:scale-105"
+              <Placeholder
+                label={`Clinic photo ${i + 1}`}
+                className="aspect-square w-full hover:opacity-80 transition reveal"
               />
             </button>
           ))}
         </div>
       </div>
-      <Dialog open={openIdx !== null} onOpenChange={(o) => !o && setOpenIdx(null)}>
-        <DialogContent className="max-w-3xl">
-          <DialogHeader><DialogTitle>{openIdx !== null ? galleryPhotos[openIdx].alt : "Clinic photo"}</DialogTitle></DialogHeader>
-          {openIdx !== null && (
-            <img
-              src={galleryPhotos[openIdx].src}
-              alt={galleryPhotos[openIdx].alt}
-              className="w-full rounded-xl object-contain max-h-[70vh]"
-            />
-          )}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader><DialogTitle>Clinic photo</DialogTitle></DialogHeader>
+          <Placeholder label="Upload photos to populate the gallery" className="aspect-video w-full" />
         </DialogContent>
       </Dialog>
     </section>
