@@ -18,8 +18,10 @@ import { toast } from "sonner";
 import { Navbar } from "@/components/site/Navbar";
 import { FloatingActions } from "@/components/site/FloatingActions";
 import { AppointmentDialog } from "@/components/site/AppointmentDialog";
-import { Placeholder } from "@/components/site/Placeholder";
+
 import { clinic } from "@/lib/clinic";
+import { clinicPhotos, heroPhoto, clinicExteriorPhoto } from "@/lib/photos";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -173,8 +175,13 @@ function Hero() {
           </div>
         </div>
         <div className="reveal">
-          <Placeholder label="Clinic hero image" className="aspect-[4/5] sm:aspect-[5/4] w-full shadow-soft" />
+          <img
+            src={heroPhoto.url}
+            alt={heroPhoto.alt}
+            className="aspect-[4/5] sm:aspect-[5/4] w-full rounded-2xl object-cover shadow-soft"
+          />
         </div>
+
       </div>
     </section>
   );
@@ -189,7 +196,13 @@ function About() {
   return (
     <section id="about" className="section-pad">
       <div className="container-x grid gap-12 lg:grid-cols-2 lg:items-center">
-        <Placeholder label="Photo of Dr. Harish Khamkar" className="aspect-square w-full max-w-md mx-auto shadow-card reveal" />
+        <img
+          src={clinicExteriorPhoto.url}
+          alt={clinicExteriorPhoto.alt}
+          loading="lazy"
+          className="aspect-square w-full max-w-md mx-auto rounded-2xl object-cover shadow-card reveal"
+        />
+
         <div className="reveal">
           <span className="inline-block rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
             About
@@ -308,37 +321,45 @@ function WhyUs() {
 }
 
 function Gallery() {
-  const [open, setOpen] = useState(false);
-  const items = Array.from({ length: 6 });
+  const [active, setActive] = useState<number | null>(null);
   return (
     <section id="gallery" className="section-pad bg-muted/40">
       <div className="container-x">
         <SectionTitle eyebrow="Gallery" title="Inside our clinic" subtitle="A peek at our space and care in action." />
         <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-4">
-          {items.map((_, i) => (
+          {clinicPhotos.map((p, i) => (
             <button
-              key={i}
-              onClick={() => setOpen(true)}
-              className="block w-full text-left"
-              aria-label={`Open gallery image ${i + 1}`}
+              key={p.url}
+              onClick={() => setActive(i)}
+              className="block w-full overflow-hidden rounded-2xl reveal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              aria-label={`Open photo: ${p.alt}`}
             >
-              <Placeholder
-                label={`Clinic photo ${i + 1}`}
-                className="aspect-square w-full hover:opacity-80 transition reveal"
+              <img
+                src={p.url}
+                alt={p.alt}
+                loading="lazy"
+                className="aspect-square w-full object-cover transition hover:scale-105 hover:opacity-90"
               />
             </button>
           ))}
         </div>
       </div>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl">
+      <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
+        <DialogContent className="max-w-3xl">
           <DialogHeader><DialogTitle>Clinic photo</DialogTitle></DialogHeader>
-          <Placeholder label="Upload photos to populate the gallery" className="aspect-video w-full" />
+          {active !== null && (
+            <img
+              src={clinicPhotos[active].url}
+              alt={clinicPhotos[active].alt}
+              className="w-full rounded-xl object-contain"
+            />
+          )}
         </DialogContent>
       </Dialog>
     </section>
   );
 }
+
 
 function Reviews() {
   const [idx, setIdx] = useState(0);
