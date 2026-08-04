@@ -20,6 +20,8 @@ import { FloatingActions } from "@/components/site/FloatingActions";
 import { AppointmentDialog } from "@/components/site/AppointmentDialog";
 import { Placeholder } from "@/components/site/Placeholder";
 import { clinic } from "@/lib/clinic";
+import { clinicPhotos, heroPhoto, clinicExteriorPhoto } from "@/lib/photos";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -173,8 +175,13 @@ function Hero() {
           </div>
         </div>
         <div className="reveal">
-          <Placeholder label="Clinic hero image" className="aspect-[4/5] sm:aspect-[5/4] w-full shadow-soft" />
+          <img
+            src={heroPhoto.url}
+            alt={heroPhoto.alt}
+            className="aspect-[4/5] sm:aspect-[5/4] w-full rounded-2xl object-cover shadow-soft"
+          />
         </div>
+
       </div>
     </section>
   );
@@ -189,7 +196,13 @@ function About() {
   return (
     <section id="about" className="section-pad">
       <div className="container-x grid gap-12 lg:grid-cols-2 lg:items-center">
-        <Placeholder label="Photo of Dr. Harish Khamkar" className="aspect-square w-full max-w-md mx-auto shadow-card reveal" />
+        <img
+          src={clinicExteriorPhoto.url}
+          alt={clinicExteriorPhoto.alt}
+          loading="lazy"
+          className="aspect-square w-full max-w-md mx-auto rounded-2xl object-cover shadow-card reveal"
+        />
+
         <div className="reveal">
           <span className="inline-block rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
             About
