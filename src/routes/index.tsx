@@ -18,7 +18,7 @@ import { toast } from "sonner";
 import { Navbar } from "@/components/site/Navbar";
 import { FloatingActions } from "@/components/site/FloatingActions";
 import { AppointmentDialog } from "@/components/site/AppointmentDialog";
-import { Placeholder } from "@/components/site/Placeholder";
+
 import { clinic } from "@/lib/clinic";
 import { clinicPhotos, heroPhoto, clinicExteriorPhoto } from "@/lib/photos";
 
